@@ -34,6 +34,7 @@ module Trailblazer
 
     def call(result, handlers=nil, &block)
       matcher.(result, &block) and return if block_given? # evaluate user blocks first.
+    rescue Dry::Matcher::NonExhaustiveMatchError
       matcher.(result, &handlers)     # then, generic Rails handlers in controller context.
     end
 
